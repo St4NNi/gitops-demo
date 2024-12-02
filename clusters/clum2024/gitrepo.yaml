@@ -6,5 +6,45 @@ spec:
   url: https://github.com/ckaipf/flux-test
   ref:
     branch: main
+
 ---
 
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: St4NNi
+spec:
+  url: https://github.com/St4NNi/gitops-demo2
+  ref:
+    branch: main
+
+---
+
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-configs
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: ckaipf
+  path: ./test # Subpath in repo
+  prune: false # Should resources be deleted
+
+---
+
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-configs
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: St4NNi
+  path: ./test # Subpath in repo
