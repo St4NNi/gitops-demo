@@ -126,6 +126,8 @@ Create a `kustomization.yaml` and a yaml containing an nginx deployment as well 
 
 #### Secrets using SOPS
 
+Sops is a local tool to manage secrets: https://github.com/getsops/sops
+
 Installing sops:
 
 https://github.com/getsops/sops/releases
@@ -223,3 +225,49 @@ spec:
     secretRef:
       name: sops-gpg # Secret name
 ```
+
+
+### Secrets using Sealed Secrets
+
+Sealed secrets is an embedded secret controller for Kubernetes.
+
+Deploy the helm chart:
+```bash
+
+flux create source helm sealed-secrets \
+--interval=1h \
+--url=https://bitnami-labs.github.io/sealed-secrets
+```
+
+```bash
+
+flux create helmrelease sealed-secrets \
+--interval=1h \
+--release-name=sealed-secrets-controller \
+--target-namespace=flux-system \
+--source=HelmRepository/sealed-secrets \
+--chart=sealed-secrets \
+--chart-version=">=1.15.0-0" \
+--crds=CreateReplace
+```
+
+Create a dummy secret:
+
+```bash
+
+kubectl -n default create secret generic basic-auth \
+--from-literal=user=admin \
+--from-literal=password=change-me \
+--dry-run=client \
+-o yaml > basic-auth.yaml
+```
+
+Seal the secret using the kubeseal tool:
+
+```bash
+
+kubeseal --format=yaml --cert=pub-sealed-secrets.pem \
+< basic-auth.yaml > basic-auth-sealed.yaml
+```
+
+Upload the resulting sealed file into you repo.
