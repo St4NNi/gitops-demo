@@ -4,6 +4,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: ckaipf
+  namespace: flux-system
 spec:
   url: https://github.com/ckaipf/flux-test
   ref:
@@ -15,6 +16,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: stanni
+  namespace: flux-system
 spec:
   url: https://github.com/St4NNi/gitops-demo2
   ref:
@@ -25,7 +27,8 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: chaipf
+  name: ckaipf
+  namespace: ckaipf
 spec:
   interval: 1h
   retryInterval: 1m
@@ -42,6 +45,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: stanni
+  namespace: stanni
 spec:
   interval: 1h
   retryInterval: 1m
