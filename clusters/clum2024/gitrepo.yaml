@@ -54,6 +54,6 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: St4NNi
+    name: stanni
   path: ./test # Subpath in repo
   prune: false
