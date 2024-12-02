@@ -54,3 +54,4 @@ spec:
     kind: GitRepository
     name: St4NNi
   path: ./test # Subpath in repo
+  prune: false
