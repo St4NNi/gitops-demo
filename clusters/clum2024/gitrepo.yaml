@@ -1,3 +1,5 @@
+---
+
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
@@ -12,7 +14,7 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: St4NNi
+  name: stanni
 spec:
   url: https://github.com/St4NNi/gitops-demo2
   ref:
@@ -23,7 +25,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-configs
+  name: chaipf
 spec:
   interval: 1h
   retryInterval: 1m
@@ -39,7 +41,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-configs
+  name: stanni
 spec:
   interval: 1h
   retryInterval: 1m
